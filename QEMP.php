@@ -597,10 +597,10 @@ function perform_join($join_arr, $items)
         {
             $main_table = $key;
             $on_column = $value;
-            $query_string .= "SELECT * FROM " . "`" . $items_string . "` ";
+            $query_string .= "SELECT * FROM " . "`" . $main_table . "` ";
         } else 
         {    
-            $query_string .= "JOIN " . $key . "." . $value . " ON " . $key . "." . $value . "=" . $main_table . "." . $on_column;
+            $query_string .= "JOIN " . $key . " ON " . $key . "." . $value . "=" . $main_table . "." . $on_column;
         }
         $index++;
     }
