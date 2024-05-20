@@ -170,7 +170,7 @@ function update($table, $insert_arr, $where_arr)
  * @param array $where_arr The associative array of conditions for the deletion.
  * @return string The query string for debug purposes.
  */
-function delete($table, $where_arr)
+function delete_where($table, $where_arr)
 {
     global $conn;
 
