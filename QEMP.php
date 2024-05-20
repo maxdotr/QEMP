@@ -397,7 +397,7 @@ function join_select_all($join_arr)
  * Joins and selects data from multiple tables with conditions.
  * 
  * Example usage:
- *      join_select_where(array("cars"=>"id", "owners"=>"car_id"), array("cars.make"=>"ford"));
+ *      join_select_where(array("cars"=>"id", "owners"=>"car_id"), array("make"=>"ford"));
  * Returns:
  *      //Joined data from cars and owners tables where make is 'ford'
  *      [["car_id"=>1,"make"=>"ford","owner_name"=>"John"],["car_id"=>2,"make"=>"ford","owner_name"=>"Jane"],[etc],[etc]...]
@@ -421,7 +421,7 @@ function join_select_where($join_arr, $where_arr)
  * Joins and selects data from multiple tables with conditions and specified ordering.
  * 
  * Example usage:
- *      join_select_where_order_by(array("cars"=>"id", "owners"=>"car_id"), array("cars.make"=>"ford"), array("owners.owner_name"=>"ASC"));
+ *      join_select_where_order_by(array("cars"=>"id", "owners"=>"car_id"), array("make"=>"ford"), array("owner_name"=>"ASC"));
  * Returns:
  *      //Joined data from cars and owners tables where make is 'ford', ordered by owner_name ascending
  *      [["car_id"=>1,"make"=>"ford","owner_name"=>"John"],["car_id"=>2,"make"=>"ford","owner_name"=>"Jane"],[etc],[etc]...]
@@ -448,7 +448,7 @@ function join_select_where_order_by($join_arr, $where_arr, $order_by)
  * Joins and selects all data from multiple tables with specified ordering.
  * 
  * Example usage:
- *      join_select_all_order_by(array("cars"=>"id", "owners"=>"car_id"), array("owners.owner_name"=>"ASC"));
+ *      join_select_all_order_by(array("cars"=>"id", "owners"=>"car_id"), array("owner_name"=>"ASC"));
  * Returns:
  *      //Joined data from cars and owners tables ordered by owner_name ascending
  *      [["car_id"=>1,"make"=>"ford","owner_name"=>"John"],["car_id"=>2,"make"=>"toyota","owner_name"=>"Jane"],[etc],[etc]...]
@@ -473,7 +473,7 @@ function join_select_all_order_by($join_arr, $order_by)
  * Joins and selects specific columns from multiple tables.
  * 
  * Example usage:
- *      join_select_specific(array("cars"=>"id", "owners"=>"car_id"), array("cars.make","owner.owner_name"));
+ *      join_select_specific(array("cars"=>"id", "owners"=>"car_id"), array("make","owner.owner_name"));
  * Returns:
  *      //Joined data from cars and owners tables with specified columns
  *      [["make"=>"ford","owner_name"=>"John"],["make"=>"toyota","owner_name"=>"Jane"],[etc],[etc]...]
@@ -495,7 +495,7 @@ function join_select_specific($join_arr, $items)
  * Joins and selects specific columns from multiple tables with specified ordering.
  * 
  * Example usage:
- *      join_select_specific_order_by(array("cars"=>"id", "owners"=>"car_id"), array("cars.make","owners.owner_name"), array("owner.owner_name"=>"ASC"));
+ *      join_select_specific_order_by(array("cars"=>"id", "owners"=>"car_id"), array("make","owner_name"), array("owner.owner_name"=>"ASC"));
  * Returns:
  *      //Joined data from cars and owners tables with specified columns and ordering
  *      [["make"=>"ford","owner_name"=>"John"],["make"=>"toyota","owner_name"=>"Jane"],[etc],[etc]...]
@@ -520,7 +520,7 @@ function join_select_specific_order_by($join_arr, $items, $order_by)
  * Joins and selects specific columns from multiple tables with conditions.
  * 
  * Example usage:
- *      join_select_specific_where(array("cars"=>"id", "owners"=>"car_id"), array("cars.make","owners.owner_name"), array("cars.make"=>"ford"));
+ *      join_select_specific_where(array("cars"=>"id", "owners"=>"car_id"), array("make","owner_name"), array("make"=>"ford"));
  * Returns:
  *      //Joined data from cars and owners tables with specified columns and conditions
  *      [["make"=>"ford","owner_name"=>"John"],["make"=>"ford","owner_name"=>"Jane"],[etc],[etc]...]
@@ -545,7 +545,7 @@ function join_select_specific_where($join_arr, $items, $where_arr)
  * Joins and selects specific columns from multiple tables with conditions and specified ordering.
  * 
  * Example usage:
- *      join_select_specific_where_order_by(array("cars"=>"id", "owners"=>"car_id"), array("cars.make","owners.owner_name"), array("cars.make"=>"ford"), array("owners.owner_name"=>"ASC"));
+ *      join_select_specific_where_order_by(array("cars"=>"id", "owners"=>"car_id"), array("make","owner_name"), array("make"=>"ford"), array("owner_name"=>"ASC"));
  * Returns:
  *      //Joined data from cars and owners tables with specified columns, conditions, and ordering
  *      [["make"=>"ford","owner_name"=>"John"],["make"=>"ford","owner_name"=>"Jane"],[etc],[etc]...]
