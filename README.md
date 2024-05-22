@@ -2,7 +2,7 @@
 
 - **Author**: Maxwell Rodgers
 - **Version**: 1.0
-- **Last Updated**: May 17th, 2024
+- **Last Updated**: May 22nd, 2024
 
 # Quick & Easy: PHP -> MySQL Library
 
