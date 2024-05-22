@@ -569,6 +569,12 @@ function join_select_specific_where_order_by($join_arr, $items, $where_arr, $ord
     return clean_and_return_rows($conn, $query_string);
 }
 
+/**
+ * Selects distinc element in a column from specified table.
+ * 
+ * @param string $table The table the column is in
+ * @param string $column The column in which to select distinc elements
+ */
 function select_distinct($table, $column)
 {
     global $conn;
