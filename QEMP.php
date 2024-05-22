@@ -569,6 +569,13 @@ function join_select_specific_where_order_by($join_arr, $items, $where_arr, $ord
     return clean_and_return_rows($conn, $query_string);
 }
 
+function select_distinct($table, $column)
+{
+    global $conn;
+    $query_string = "SELECT DISTINCT " . $column . " FROM " . $table ."";
+    return clean_and_return_rows($conn, $query_string);
+}
+
 /**
  * Constructs a SQL join query string.
  * 
@@ -692,3 +699,5 @@ function clean_and_return_rows($conn, $query_string) {
 
     return $rows;
 }
+
+
