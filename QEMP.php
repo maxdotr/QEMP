@@ -121,6 +121,18 @@ function insert($table, $insert_arr)
 }
 
 /**
+ * Gets the id of the last inserted item
+ * 
+ */
+function get_last_insert_id()
+{
+    global $conn;
+
+    $query_string = "SELECT LAST_INSERT_ID()";
+    return mysqli_query($conn, $query_string);
+}
+
+/**
  * Updates data in a specified table.
  * 
  * Example usage:
