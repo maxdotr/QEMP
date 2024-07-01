@@ -129,7 +129,14 @@ function get_last_insert_id()
     global $conn;
 
     $query_string = "SELECT LAST_INSERT_ID()";
-    return mysqli_query($conn, $query_string);
+    $result = mysqli_query($conn, $query_string);
+
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        return (int) $row['LAST_INSERT_ID()'];
+    } else {
+        return null; 
+    }
 }
 
 /**
