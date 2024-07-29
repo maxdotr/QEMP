@@ -634,6 +634,25 @@ function select_distinct_where_order_by($table, $column, $where_arr, $order_by)
 }
 
 /**
+ * Selects distinc element in a column from specified table, where a value is specified and sorted in declared order.
+ * 
+ * @param string $table The table the column is in
+ * @param string $column The column in which to select distinc elements
+ * @param array $where_arr The associative array of conditions for the selection.
+ * @param array $order_by The associative array specifying the order of the results.
+ */
+function join_select_distinct_where_order_by($join_arr, $items, $column, $where_arr, $order_by)
+{
+    global $conn;
+    $query_string = perform_join($join_arr, $items);
+    $distinct_string = "SELECT DISTINCT " . $column;
+    $query_string = substr_replace("SELECT *",$distinct_string, $query_string);
+    $query_string = perform_where($query_string, $where_arr);
+    $query_string = perform_order_by($query_string, $order_by);
+    return clean_and_return_rows($conn, $query_string);
+}
+
+/**
  * Constructs a SQL join query string.
  * 
  * @param array $join_arr The associative array specifying the tables and join conditions.
