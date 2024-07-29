@@ -641,10 +641,10 @@ function select_distinct_where_order_by($table, $column, $where_arr, $order_by)
  * @param array $where_arr The associative array of conditions for the selection.
  * @param array $order_by The associative array specifying the order of the results.
  */
-function join_select_distinct_where_order_by($join_arr, $items, $column, $where_arr, $order_by)
+function join_select_distinct_where_order_by($join_arr, $column, $where_arr, $order_by)
 {
     global $conn;
-    $query_string = perform_join($join_arr, $items);
+    $query_string = perform_join($join_arr, ['*']);
     $distinct_string = "SELECT DISTINCT " . $column;
     $query_string = substr_replace("SELECT *",$distinct_string, $query_string);
     $query_string = perform_where($query_string, $where_arr);
