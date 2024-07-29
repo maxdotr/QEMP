@@ -602,16 +602,34 @@ function select_distinct($table, $column)
 }
 
 /**
- * Selects distinc element in a column from specified table.
+ * Selects distinc element in a column from specified table, where a value is specified.
  * 
  * @param string $table The table the column is in
  * @param string $column The column in which to select distinc elements
+ * @param array $where_arr The associative array of conditions for the selection.
  */
 function select_distinct_where($table, $column, $where_arr)
 {
     global $conn;
     $query_string = "SELECT DISTINCT " . $column . " FROM " . $table ."";
     $query_string = perform_where($query_string, $where_arr);
+    return clean_and_return_rows($conn, $query_string);
+}
+
+/**
+ * Selects distinc element in a column from specified table, where a value is specified and sorted in declared order.
+ * 
+ * @param string $table The table the column is in
+ * @param string $column The column in which to select distinc elements
+ * @param array $where_arr The associative array of conditions for the selection.
+ * @param array $order_by The associative array specifying the order of the results.
+ */
+function select_distinct_where_order_by($table, $column, $where_arr, $order_by)
+{
+    global $conn;
+    $query_string = "SELECT DISTINCT " . $column . " FROM " . $table ."";
+    $query_string = perform_where($query_string, $where_arr);
+    $query_string = perform_order_by($query_string, $order_by);
     return clean_and_return_rows($conn, $query_string);
 }
 
