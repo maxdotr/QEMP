@@ -135,7 +135,7 @@ function get_last_insert_id()
         $row = mysqli_fetch_assoc($result);
         return (int) $row['LAST_INSERT_ID()'];
     } else {
-        return null; 
+        return null;
     }
 }
 
@@ -598,6 +598,20 @@ function select_distinct($table, $column)
 {
     global $conn;
     $query_string = "SELECT DISTINCT " . $column . " FROM " . $table ."";
+    return clean_and_return_rows($conn, $query_string);
+}
+
+/**
+ * Selects distinc element in a column from specified table.
+ * 
+ * @param string $table The table the column is in
+ * @param string $column The column in which to select distinc elements
+ */
+function select_distinct_where($table, $column, $where_arr)
+{
+    global $conn;
+    $query_string = "SELECT DISTINCT " . $column . " FROM " . $table ."";
+    $query_string = perform_where($query_string, $where_arr);
     return clean_and_return_rows($conn, $query_string);
 }
 
