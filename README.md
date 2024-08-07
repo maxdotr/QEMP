@@ -1,8 +1,8 @@
 ## Package Info
 
 - **Author**: Maxwell Rodgers
-- **Version**: 1.0
-- **Last Updated**: May 22nd, 2024
+- **Version**: 1.4
+- **Last Updated**: August 7th, 2024
 
 # Quick & Easy: PHP -> MySQL Library
 
