@@ -401,13 +401,15 @@ function select_specific_where_order_by($table, $items, $where_arr, $order_by)
  *      [["car_id"=>1,"make"=>"ford","owner_name"=>"John"],["car_id"=>2,"make"=>"toyota","owner_name"=>"Jane"],[etc],[etc]...]
  * 
  * @param array $join_arr The associative array specifying the tables and join conditions.
+ * @param array $switch An associative array in the format ['table'=>'switch to']. When declared, after encountering specified table in join arr, will start joining by the specified column from that table
+ * For example, if the join arr is ["cars"=>"id", "owners"=>"car_id", "boats"=>"owner_id"] and switch is declared as ["owners"=>"owner_id"], after performing the join between cars and owners on car id, a join will be performed between owners=>owner_id and boats=>owner_id.
  * @return array An array of associative arrays, each representing a row of joined data.
  */
-function join_select_all($join_arr)
+function join_select_all($join_arr, $switch = null)
 {
     global $conn;
 
-    $query_string = perform_join($join_arr, ["*"]);
+    $query_string = perform_join($join_arr, ["*"], $switch);
     
     return clean_and_return_rows($conn, $query_string);
 }
@@ -423,13 +425,15 @@ function join_select_all($join_arr)
  * 
  * @param array $join_arr The associative array specifying the tables and join conditions.
  * @param array $where_arr The associative array of conditions for the selection.
+ * @param array $switch An associative array in the format ['table'=>'switch to']. When declared, after encountering specified table in join arr, will start joining by the specified column from that table
+ * For example, if the join arr is ["cars"=>"id", "owners"=>"car_id", "boats"=>"owner_id"] and switch is declared as ["owners"=>"owner_id"], after performing the join between cars and owners on car id, a join will be performed between owners=>owner_id and boats=>owner_id.
  * @return array An array of associative arrays, each representing a row of joined data.
  */
-function join_select_where($join_arr, $where_arr)
+function join_select_where($join_arr, $where_arr, $switch = null)
 {
     global $conn;
 
-    $query_string = perform_join($join_arr, ['*']);
+    $query_string = perform_join($join_arr, ['*'], $switch);
 
     $query_string = perform_where($query_string, $where_arr);
 
@@ -448,13 +452,15 @@ function join_select_where($join_arr, $where_arr)
  * @param array $join_arr The associative array specifying the tables and join conditions.
  * @param array $where_arr The associative array of conditions for the selection.
  * @param array $order_by The associative array specifying the order of the results.
+ * @param array $switch An associative array in the format ['table'=>'switch to']. When declared, after encountering specified table in join arr, will start joining by the specified column from that table
+ * For example, if the join arr is ["cars"=>"id", "owners"=>"car_id", "boats"=>"owner_id"] and switch is declared as ["owners"=>"owner_id"], after performing the join between cars and owners on car id, a join will be performed between owners=>owner_id and boats=>owner_id.
  * @return array An array of associative arrays, each representing a row of joined data.
  */
-function join_select_where_order_by($join_arr, $where_arr, $order_by)
+function join_select_where_order_by($join_arr, $where_arr, $order_by, $switch = null)
 {
     global $conn;
 
-    $query_string = perform_join($join_arr, ['*']);
+    $query_string = perform_join($join_arr, ['*'], $switch);
 
     $query_string = perform_where($query_string, $where_arr);
     
@@ -474,13 +480,15 @@ function join_select_where_order_by($join_arr, $where_arr, $order_by)
  * 
  * @param array $join_arr The associative array specifying the tables and join conditions.
  * @param array $order_by The associative array specifying the order of the results.
+ * @param array $switch An associative array in the format ['table'=>'switch to']. When declared, after encountering specified table in join arr, will start joining by the specified column from that table
+ * For example, if the join arr is ["cars"=>"id", "owners"=>"car_id", "boats"=>"owner_id"] and switch is declared as ["owners"=>"owner_id"], after performing the join between cars and owners on car id, a join will be performed between owners=>owner_id and boats=>owner_id.
  * @return array An array of associative arrays, each representing a row of joined data.
  */
-function join_select_all_order_by($join_arr, $order_by)
+function join_select_all_order_by($join_arr, $order_by, $switch = null)
 {
     global $conn;
 
-    $query_string = perform_join($join_arr, ["*"]);
+    $query_string = perform_join($join_arr, ["*"], $switch);
 
     $query_string = perform_order_by($query_string, $order_by);
 
@@ -499,13 +507,15 @@ function join_select_all_order_by($join_arr, $order_by)
  * 
  * @param array $join_arr The associative array specifying the tables and join conditions.
  * @param array $items The array of columns to select.
+ * @param array $switch An associative array in the format ['table'=>'switch to']. When declared, after encountering specified table in join arr, will start joining by the specified column from that table
+ * For example, if the join arr is ["cars"=>"id", "owners"=>"car_id", "boats"=>"owner_id"] and switch is declared as ["owners"=>"owner_id"], after performing the join between cars and owners on car id, a join will be performed between owners=>owner_id and boats=>owner_id.
  * @return array An array of associative arrays, each representing a row of joined data.
  */
-function join_select_specific($join_arr, $items)
+function join_select_specific($join_arr, $items, $switch = null)
 {
     global $conn;
 
-    $query_string = perform_join($join_arr, $items);
+    $query_string = perform_join($join_arr, $items, $switch);
 
     return clean_and_return_rows($conn, $query_string);
 }
@@ -522,13 +532,15 @@ function join_select_specific($join_arr, $items)
  * @param array $join_arr The associative array specifying the tables and join conditions.
  * @param array $items The array of columns to select.
  * @param array $order_by The associative array specifying the order of the results.
+ * @param array $switch An associative array in the format ['table'=>'switch to']. When declared, after encountering specified table in join arr, will start joining by the specified column from that table
+ * For example, if the join arr is ["cars"=>"id", "owners"=>"car_id", "boats"=>"owner_id"] and switch is declared as ["owners"=>"owner_id"], after performing the join between cars and owners on car id, a join will be performed between owners=>owner_id and boats=>owner_id.
  * @return array An array of associative arrays, each representing a row of joined data.
  */
-function join_select_specific_order_by($join_arr, $items, $order_by)
+function join_select_specific_order_by($join_arr, $items, $order_by, $switch = null)
 {
     global $conn;
 
-    $query_string = perform_join($join_arr, $items);
+    $query_string = perform_join($join_arr, $items, $switch);
 
     $query_string = perform_order_by($query_string, $order_by);
 
@@ -547,13 +559,15 @@ function join_select_specific_order_by($join_arr, $items, $order_by)
  * @param array $join_arr The associative array specifying the tables and join conditions.
  * @param array $items The array of columns to select.
  * @param array $where_arr The associative array of conditions for the selection.
+ * @param array $switch An associative array in the format ['table'=>'switch to']. When declared, after encountering specified table in join arr, will start joining by the specified column from that table
+ * For example, if the join arr is ["cars"=>"id", "owners"=>"car_id", "boats"=>"owner_id"] and switch is declared as ["owners"=>"owner_id"], after performing the join between cars and owners on car id, a join will be performed between owners=>owner_id and boats=>owner_id.
  * @return array An array of associative arrays, each representing a row of joined data.
  */
-function join_select_specific_where($join_arr, $items, $where_arr)
+function join_select_specific_where($join_arr, $items, $where_arr, $switch = null)
 {
     global $conn;
 
-    $query_string = perform_join($join_arr, $items);
+    $query_string = perform_join($join_arr, $items, $switch);
 
     $query_string = perform_where($query_string, $where_arr);
 
@@ -573,13 +587,15 @@ function join_select_specific_where($join_arr, $items, $where_arr)
  * @param array $items The array of columns to select.
  * @param array $where_arr The associative array of conditions for the selection.
  * @param array $order_by The associative array specifying the order of the results.
+ * @param array $switch An associative array in the format ['table'=>'switch to']. When declared, after encountering specified table in join arr, will start joining by the specified column from that table
+ * For example, if the join arr is ["cars"=>"id", "owners"=>"car_id", "boats"=>"owner_id"] and switch is declared as ["owners"=>"owner_id"], after performing the join between cars and owners on car id, a join will be performed between owners=>owner_id and boats=>owner_id.
  * @return array An array of associative arrays, each representing a row of joined data.
  */
-function join_select_specific_where_order_by($join_arr, $items, $where_arr, $order_by)
+function join_select_specific_where_order_by($join_arr, $items, $where_arr, $order_by, $switch = null)
 {
     global $conn;
 
-    $query_string = perform_join($join_arr, $items);
+    $query_string = perform_join($join_arr, $items, $switch);
 
     $query_string = perform_where($query_string, $where_arr);
     
@@ -639,14 +655,16 @@ function select_distinct_where_order_by($table, $column, $where_arr, $order_by)
  * @param string $table The table the column is in
  * @param string $column The column in which to select distinc elements
  * @param array $where_arr The associative array of conditions for the selection.
+ * @param array $switch An associative array in the format ['table'=>'switch to']. When declared, after encountering specified table in join arr, will start joining by the specified column from that table
+ * For example, if the join arr is ["cars"=>"id", "owners"=>"car_id", "boats"=>"owner_id"] and switch is declared as ["owners"=>"owner_id"], after performing the join between cars and owners on car id, a join will be performed between owners=>owner_id and boats=>owner_id.
  * @param array $order_by The associative array specifying the order of the results.
  */
-function join_select_distinct_where_order_by($join_arr, $column, $where_arr, $order_by)
+function join_select_distinct_where_order_by($join_arr, $column, $where_arr, $order_by, $switch = null)
 {
     global $conn;
-    $query_string = perform_join($join_arr, ['*']);
+    $query_string = perform_join($join_arr, ['*'], $switch);
     $distinct_string = "SELECT DISTINCT " . $column;
-    $query_string = substr_replace("SELECT *",$distinct_string, $query_string);
+    $query_string = str_replace("SELECT *", $distinct_string, $query_string);
     $query_string = perform_where($query_string, $where_arr);
     $query_string = perform_order_by($query_string, $order_by);
     return clean_and_return_rows($conn, $query_string);
@@ -657,9 +675,10 @@ function join_select_distinct_where_order_by($join_arr, $column, $where_arr, $or
  * 
  * @param array $join_arr The associative array specifying the tables and join conditions.
  * @param array $items The array of columns to select.
+ * @param array $switch OPTIONAL, when this table is reached, main table and column joined from switch to this item in the array
  * @return string The constructed SQL query string.
  */
-function perform_join($join_arr, $items)
+function perform_join($join_arr, $items, $switch = null)
 {
     $query_string = "";
     $items_string = "";
@@ -683,7 +702,16 @@ function perform_join($join_arr, $items)
             $query_string .= "SELECT * FROM " . "`" . $main_table . "` ";
         } else 
         {    
-            $query_string .= "JOIN " . $key . " ON " . $key . "." . $value . "=" . $main_table . "." . $on_column;
+            $query_string .= "JOIN " . $key . " ON " . $key . "." . $value . "=" . $main_table . "." . $on_column . " ";
+
+            if(isset($switch)){
+                foreach($switch as $switch_key => $switch_value)
+                if($key == $switch_key)
+                {
+                    $main_table = $key;
+                    $on_column = $switch_value;
+                }
+            }
         }
         $index++;
     }
